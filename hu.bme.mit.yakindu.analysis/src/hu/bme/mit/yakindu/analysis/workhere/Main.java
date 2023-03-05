@@ -1,10 +1,14 @@
 package hu.bme.mit.yakindu.analysis.workhere;
 
+import java.util.HashSet;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.junit.Test;
 import org.yakindu.sct.model.sgraph.State;
 import org.yakindu.sct.model.sgraph.Statechart;
+import org.yakindu.sct.model.sgraph.Transition;
 
 import hu.bme.mit.model2gml.Model2GML;
 import hu.bme.mit.yakindu.analysis.modelmanager.ModelManager;
@@ -25,11 +29,34 @@ public class Main {
 		// Reading model
 		Statechart s = (Statechart) root;
 		TreeIterator<EObject> iterator = s.eAllContents();
+		
+		//naming assets
+		int numberOfUnnamedStates = 0;
+		HashSet<String> names = new HashSet<String>();
+		
 		while (iterator.hasNext()) {
 			EObject content = iterator.next();
 			if(content instanceof State) {
 				State state = (State) content;
-				System.out.println(state.getName());
+				String name = state.getName();
+				
+				if(name == null || name.isEmpty()) {
+					name = "State" + numberOfUnnamedStates;
+					state.setName(name);
+					numberOfUnnamedStates++;
+				}
+
+				System.out.println(name);
+				
+				//finding trap states
+				EList<Transition> transitions = state.getOutgoingTransitions();
+				if(transitions == null || transitions.isEmpty()) {
+					System.out.println(state.getName() + " is a trap state");
+				}
+			}
+			if(content instanceof Transition) {
+				Transition transition = (Transition) content;
+				System.out.println(transition.getSource().getName() + " - > " + transition.getTarget().getName());
 			}
 		}
 		
