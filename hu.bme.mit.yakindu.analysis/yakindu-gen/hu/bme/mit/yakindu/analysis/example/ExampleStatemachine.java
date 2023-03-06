@@ -12,42 +12,42 @@ public class ExampleStatemachine implements IExampleStatemachine {
 			start = true;
 		}
 		
-		private boolean white;
+		private boolean alma;
 		
-		public void raiseWhite() {
-			white = true;
+		public void raiseAlma() {
+			alma = true;
 		}
 		
-		private boolean black;
+		private boolean barack;
 		
-		public void raiseBlack() {
-			black = true;
+		public void raiseBarack() {
+			barack = true;
 		}
 		
-		private long whiteTime;
+		private long elsoIdo;
 		
-		public long getWhiteTime() {
-			return whiteTime;
+		public long getElsoIdo() {
+			return elsoIdo;
 		}
 		
-		public void setWhiteTime(long value) {
-			this.whiteTime = value;
+		public void setElsoIdo(long value) {
+			this.elsoIdo = value;
 		}
 		
-		private long blackTime;
+		private long masodikIdo;
 		
-		public long getBlackTime() {
-			return blackTime;
+		public long getMasodikIdo() {
+			return masodikIdo;
 		}
 		
-		public void setBlackTime(long value) {
-			this.blackTime = value;
+		public void setMasodikIdo(long value) {
+			this.masodikIdo = value;
 		}
 		
 		protected void clearEvents() {
 			start = false;
-			white = false;
-			black = false;
+			alma = false;
+			barack = false;
 		}
 	}
 	
@@ -84,9 +84,9 @@ public class ExampleStatemachine implements IExampleStatemachine {
 		}
 		clearEvents();
 		clearOutEvents();
-		sCInterface.setWhiteTime(60);
+		sCInterface.setElsoIdo(60);
 		
-		sCInterface.setBlackTime(60);
+		sCInterface.setMasodikIdo(60);
 	}
 	
 	public void enter() {
@@ -207,28 +207,28 @@ public class ExampleStatemachine implements IExampleStatemachine {
 		sCInterface.raiseStart();
 	}
 	
-	public void raiseWhite() {
-		sCInterface.raiseWhite();
+	public void raiseAlma() {
+		sCInterface.raiseAlma();
 	}
 	
-	public void raiseBlack() {
-		sCInterface.raiseBlack();
+	public void raiseBarack() {
+		sCInterface.raiseBarack();
 	}
 	
-	public long getWhiteTime() {
-		return sCInterface.getWhiteTime();
+	public long getElsoIdo() {
+		return sCInterface.getElsoIdo();
 	}
 	
-	public void setWhiteTime(long value) {
-		sCInterface.setWhiteTime(value);
+	public void setElsoIdo(long value) {
+		sCInterface.setElsoIdo(value);
 	}
 	
-	public long getBlackTime() {
-		return sCInterface.getBlackTime();
+	public long getMasodikIdo() {
+		return sCInterface.getMasodikIdo();
 	}
 	
-	public void setBlackTime(long value) {
-		sCInterface.setBlackTime(value);
+	public void setMasodikIdo(long value) {
+		sCInterface.setMasodikIdo(value);
 	}
 	
 	/* Entry action for state 'Black'. */
@@ -345,13 +345,13 @@ public class ExampleStatemachine implements IExampleStatemachine {
 		
 		if (try_transition) {
 			if (react()==false) {
-				if (sCInterface.black) {
+				if (sCInterface.barack) {
 					exitSequence_main_region_Black();
 					enterSequence_main_region_White_default();
 				} else {
 					if (timeEvents[0]) {
 						exitSequence_main_region_Black();
-						sCInterface.setBlackTime(sCInterface.getBlackTime() - 1);
+						sCInterface.setMasodikIdo(sCInterface.getMasodikIdo() - 1);
 						
 						enterSequence_main_region_Black_default();
 					} else {
@@ -368,13 +368,13 @@ public class ExampleStatemachine implements IExampleStatemachine {
 		
 		if (try_transition) {
 			if (react()==false) {
-				if (sCInterface.white) {
+				if (sCInterface.alma) {
 					exitSequence_main_region_White();
 					enterSequence_main_region_Black_default();
 				} else {
 					if (timeEvents[1]) {
 						exitSequence_main_region_White();
-						sCInterface.setWhiteTime(sCInterface.getWhiteTime() - 1);
+						sCInterface.setElsoIdo(sCInterface.getElsoIdo() - 1);
 						
 						enterSequence_main_region_White_default();
 					} else {
